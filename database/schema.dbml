@@ -1,0 +1,65 @@
+
+Table users {
+  id bigint [pk, increment]
+
+  nome varchar
+  cpf varchar
+  telefone varchar
+  email varchar
+  data_nascimento date
+  genero varchar
+
+  cep varchar
+  logradouro varchar
+  numero varchar
+  complemento varchar
+  bairro varchar
+  cidade varchar
+  estado varchar
+}
+
+Table produtos {
+  id bigint [pk, increment]
+
+  nome varchar
+  valor_unitario decimal(10,2)
+  descricao varchar
+  largura decimal(10,2)
+  altura decimal(10,2)
+}
+
+Table pedidos {
+  id bigint [pk, increment]
+
+  user_id bigint [not null, ref: > users.id]
+  valor_total decimal(10,2)
+}
+
+Table itens_pedido {
+  id bigint [pk, increment]
+
+  pedido_id bigint [not null, ref: > pedidos.id]
+  produto_id bigint [not null, ref: > produtos.id]
+
+  quantidade int [not null]
+
+  nome_produto varchar [not null]
+  preco_unitario decimal(10,2) [not null]
+}
+
+Table customizacoes {
+  id bigint [pk, increment]
+
+  item_pedido_id bigint [not null, ref: > itens_pedido.id]
+
+  foto_path varchar [not null]
+  legenda varchar
+
+  posicao_x decimal(10,2)
+  posicao_y decimal(10,2)
+
+  largura decimal(10,2)
+  altura decimal(10,2)
+
+  ima boolean [not null]
+}
